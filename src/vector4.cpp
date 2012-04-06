@@ -5,6 +5,11 @@
 #ifdef OC_SIMD
 #include <xmmintrin.h>
 #include <pmmintrin.h>
+#include <simd.hpp>
+#endif
+
+#ifdef OC_SIMD
+#define SIMDV(name, vector) __m128 * name = (__m128*) &(vector).mX
 #endif
 
 using namespace ocmath;
@@ -32,11 +37,11 @@ vector4::vector4(const vector4 & rhs) : mX(rhs.mX), mY(rhs.mY), mZ(rhs.mZ), mW(r
 vector4 vector4::operator*(scalar rhs) const
 {
 #ifdef OC_SIMD
-    __m128 left = _mm_load_ps( &mX ); 
+    SIMDV(left, *this);
     __m128 right = _mm_load_ps1( &rhs );
-    __m128 result = _mm_mul_ps(left, right);
     vector4 v;
-    _mm_store_ps( &v.mX, result );
+    SIMDV(result, v);
+    *result = _mm_mul_ps(*left, right);
 
     return v;
 #else
@@ -48,10 +53,9 @@ const vector4 & vector4::operator*=(scalar rhs)
 {
 
 #ifdef OC_SIMD
-    __m128 left = _mm_load_ps( &mX ); 
+    SIMDV(left, *this);
     __m128 right = _mm_load_ps1( &rhs );
-    __m128 result = _mm_mul_ps(left, right);
-    _mm_store_ps( &mX, result );
+    *left = _mm_mul_ps(*left, right);
 #else
     mX *= rhs;
     mY *= rhs;
@@ -64,12 +68,11 @@ const vector4 & vector4::operator*=(scalar rhs)
 vector4 vector4::operator/(scalar rhs) const
 {
 #ifdef OC_SIMD
-    __m128 left = _mm_load_ps( &mX ); 
+    SIMDV(left, *this);
     __m128 right = _mm_load_ps1( &rhs );
-    __m128 result = _mm_div_ps(left, right);
     vector4 v;
-    _mm_store_ps( &v.mX, result );
-
+    SIMDV(result, v);
+    *result = _mm_div_ps(*left, right);
     return v;
 #else
     return vector4( mX / rhs, mY / rhs, mZ / rhs, mW / rhs );
@@ -79,10 +82,9 @@ vector4 vector4::operator/(scalar rhs) const
 const vector4 & vector4::operator/=(scalar rhs)
 {
 #ifdef OC_SIMD
-    __m128 left = _mm_load_ps( &mX ); 
+    SIMDV(left, *this);
     __m128 right = _mm_load_ps1( &rhs );
-    __m128 result = _mm_div_ps(left, right);
-    _mm_store_ps( &mX, result );
+    *left = _mm_div_ps(*left, right);
 #else
     mX /= rhs;
     mY /= rhs;
@@ -96,12 +98,11 @@ const vector4 & vector4::operator/=(scalar rhs)
 vector4 vector4::operator+(const vector4 & rhs) const
 {
 #ifdef OC_SIMD
-    __m128 left = _mm_load_ps( &mX ); 
-    __m128 right = _mm_load_ps( &rhs.mX );
-    __m128 result = _mm_add_ps(left, right);
+    SIMDV(left, *this);
+    SIMDV(right, rhs);
     vector4 v;
-    _mm_store_ps( &v.mX, result );
-
+    SIMDV(result, v);
+    *result = _mm_add_ps(*left, *right);
     return v;
 #else
     return vector4( mX + rhs.mX, mY + rhs.mY, mZ + rhs.mZ, mW + rhs.mW);
@@ -111,10 +112,9 @@ vector4 vector4::operator+(const vector4 & rhs) const
 const vector4 & vector4::operator+=(const vector4 & rhs)
 {
 #ifdef OC_SIMD
-    __m128 left = _mm_load_ps( &mX ); 
-    __m128 right = _mm_load_ps( &rhs.mX );
-    __m128 result = _mm_add_ps(left, right);
-    _mm_store_ps( &mX, result );
+    SIMDV(left, *this);
+    SIMDV(right, rhs);
+    *left = _mm_add_ps(*left, *right);
 #else
     mX += rhs.mX;
     mY += rhs.mY;
@@ -127,11 +127,11 @@ const vector4 & vector4::operator+=(const vector4 & rhs)
 vector4 vector4::operator-(const vector4 & rhs) const
 {
 #ifdef OC_SIMD
-    __m128 left = _mm_load_ps( &mX ); 
-    __m128 right = _mm_load_ps( &rhs.mX );
-    __m128 result = _mm_sub_ps(left, right);
+    SIMDV(left, *this);
+    SIMDV(right, rhs);
     vector4 v;
-    _mm_store_ps( &v.mX, result );
+    SIMDV(result, v);
+    *result = _mm_sub_ps(*left, *right);
 
     return v;
 #else
@@ -142,10 +142,9 @@ vector4 vector4::operator-(const vector4 & rhs) const
 const vector4 & vector4::operator-=(const vector4 & rhs)
 {
 #ifdef OC_SIMD
-    __m128 left = _mm_load_ps( &mX ); 
-    __m128 right = _mm_load_ps( &rhs.mX );
-    __m128 result = _mm_sub_ps(left, right);
-    _mm_store_ps( &mX, result );
+    SIMDV(left, *this);
+    SIMDV(right, rhs);
+    *left = _mm_sub_ps(*left, *right);
 #else
     mX -= rhs.mX;
     mY -= rhs.mY;
@@ -158,9 +157,9 @@ const vector4 & vector4::operator-=(const vector4 & rhs)
 scalar vector4::Dot(const vector4 & rhs) const
 {
 #ifdef OC_SIMD
-    __m128 left = _mm_load_ps( &mX ); 
-    __m128 right = _mm_load_ps( &rhs.mX );
-    __m128 mult = _mm_mul_ps(left, right);
+    SIMDV(left, *this);
+    SIMDV(right, rhs);
+    __m128 mult = _mm_mul_ps(*left, *right);
     mult = _mm_hadd_ps(mult, mult);
     mult = _mm_hadd_ps(mult, mult);
     scalar result;
