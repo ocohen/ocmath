@@ -11,7 +11,7 @@ add_definitions(-DOC_SIMD)
 if (WIN32)
 add_definitions(-DOC_WIN32)
 else()
-add_definitions(-W -Wall -ansi -pedantic -ggdb)
+add_definitions(-W -Wall -ansi -pedantic -ggdb -O2)
 endif()
 #release mode
 #add_definitions(-DRELEASE)

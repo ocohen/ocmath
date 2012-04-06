@@ -165,6 +165,7 @@ scalar vector4::Dot(const vector4 & rhs) const
     mult = _mm_hadd_ps(mult, mult);
     scalar result;
     _mm_store_ss(&result, mult);
+    return result;
 #else
     return mX * rhs.mX + mY * rhs.mY + mZ * rhs.mZ + mW * rhs.mW;
 #endif

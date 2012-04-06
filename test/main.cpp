@@ -44,5 +44,21 @@ int main()
     std::cout << "f normal" << f.Normalize() << std::endl;
     std::cout << "f: " << f << std::endl;
 
+    vector4 a(1,2,3,4);
+    vector4 b(2,3,4,5);
+    for(int i=0; i< 100000000; i++)
+    {
+        a *= 3.5;
+        b += a;
+        b /= 2.0;
+
+        if(a.Length() > 1000)
+        {
+            a = vector4(1, 2, 3, 4);
+        }
+    }
+    std::cout << "a: " << a << std::endl;
+    std::cout << "b: " << b << std::endl;
+
     return 0;
 }
