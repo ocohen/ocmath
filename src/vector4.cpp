@@ -1,16 +1,7 @@
 #include <vector4.hpp>
 #include <iostream>
 #include <cmath>
-
-#ifdef OC_SIMD
-#include <xmmintrin.h>
-#include <pmmintrin.h>
 #include <simd.hpp>
-#endif
-
-#ifdef OC_SIMD
-#define SIMDV(name, vector) __m128 * name = (__m128*) &(vector).mX
-#endif
 
 using namespace ocmath;
 
@@ -185,4 +176,12 @@ const vector4 & vector4::Normalize()
     scalar l = Length();
     (*this) /= l;
     return (*this);
+}
+
+const vector4 &  vector4::operator=(const vector4 & rhs)
+{
+    mX = rhs.mX;
+    mY = rhs.mY;
+    mZ = rhs.mZ;
+    mW = rhs.mW;
 }

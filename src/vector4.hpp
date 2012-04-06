@@ -37,13 +37,20 @@ public:
 
     const vector4 & Normalize();
 
-private:
-    scalar mX, mY, mZ, mW;
+    const vector4 & operator=(const vector4 & rhs);
+
+protected:
+    scalar mX, mY, mZ, mW;   //this is protected because anyone extending this will want to use data directly for SIMD type instructions.
+
 };
 
     inline vector4 operator*(scalar lhs, const vector4 & rhs) { return rhs * lhs; }
 
 
 }
+
+#ifdef OC_SIMD
+#define SIMDV(name, vector) __m128 * name = (__m128*) &(vector).mX
+#endif
 
 #endif
