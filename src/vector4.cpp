@@ -2,6 +2,10 @@
 #include <iostream>
 #include <cmath>
 
+#ifdef OC_SIMD
+#include <xmmintrin.h>
+#endif
+
 using namespace ocmath;
 
 //make it nice to print to screen
@@ -26,59 +30,127 @@ vector4::vector4(const vector4 & rhs) : mX(rhs.mX), mY(rhs.mY), mZ(rhs.mZ), mW(r
 
 vector4 vector4::operator*(scalar rhs) const
 {
+#ifdef OC_SIMD
+    __m128 left = _mm_load_ps( &mX ); 
+    __m128 right = _mm_load_ps1( &rhs );
+    __m128 result = _mm_mul_ps(left, right);
+    vector4 v;
+    _mm_store_ps( &v.mX, result );
+
+    return v;
+#else
     return vector4( mX * rhs, mY * rhs, mZ * rhs, mW * rhs );
+#endif
 }
 
 const vector4 & vector4::operator*=(scalar rhs)
 {
+
+#ifdef OC_SIMD
+    __m128 left = _mm_load_ps( &mX ); 
+    __m128 right = _mm_load_ps1( &rhs );
+    __m128 result = _mm_mul_ps(left, right);
+    _mm_store_ps( &mX, result );
+#else
     mX *= rhs;
     mY *= rhs;
     mZ *= rhs;
     mW *= rhs;
-
+#endif
     return *this;
 }
 
 vector4 vector4::operator/(scalar rhs) const
 {
+#ifdef OC_SIMD
+    __m128 left = _mm_load_ps( &mX ); 
+    __m128 right = _mm_load_ps1( &rhs );
+    __m128 result = _mm_div_ps(left, right);
+    vector4 v;
+    _mm_store_ps( &v.mX, result );
+
+    return v;
+#else
     return vector4( mX / rhs, mY / rhs, mZ / rhs, mW / rhs );
+#endif
 }
 
 const vector4 & vector4::operator/=(scalar rhs)
 {
+#ifdef OC_SIMD
+    __m128 left = _mm_load_ps( &mX ); 
+    __m128 right = _mm_load_ps1( &rhs );
+    __m128 result = _mm_div_ps(left, right);
+    _mm_store_ps( &mX, result );
+#else
     mX /= rhs;
     mY /= rhs;
     mZ /= rhs;
     mW /= rhs;
+#endif
 
     return *this;
 }
 
 vector4 vector4::operator+(const vector4 & rhs) const
 {
+#ifdef OC_SIMD
+    __m128 left = _mm_load_ps( &mX ); 
+    __m128 right = _mm_load_ps( &rhs.mX );
+    __m128 result = _mm_add_ps(left, right);
+    vector4 v;
+    _mm_store_ps( &v.mX, result );
+
+    return v;
+#else
     return vector4( mX + rhs.mX, mY + rhs.mY, mZ + rhs.mZ, mW + rhs.mW);
+#endif
 }
 
 const vector4 & vector4::operator+=(const vector4 & rhs)
 {
+#ifdef OC_SIMD
+    __m128 left = _mm_load_ps( &mX ); 
+    __m128 right = _mm_load_ps( &rhs.mX );
+    __m128 result = _mm_add_ps(left, right);
+    _mm_store_ps( &mX, result );
+#else
     mX += rhs.mX;
     mY += rhs.mY;
     mZ += rhs.mZ;
     mW += rhs.mW;
+#endif
     return *this;
 }
 
 vector4 vector4::operator-(const vector4 & rhs) const
 {
+#ifdef OC_SIMD
+    __m128 left = _mm_load_ps( &mX ); 
+    __m128 right = _mm_load_ps( &rhs.mX );
+    __m128 result = _mm_sub_ps(left, right);
+    vector4 v;
+    _mm_store_ps( &v.mX, result );
+
+    return v;
+#else
     return vector4( mX - rhs.mX, mY - rhs.mY, mZ - rhs.mZ, mW - rhs.mW);
+#endif
 }
 
 const vector4 & vector4::operator-=(const vector4 & rhs)
 {
+#ifdef OC_SIMD
+    __m128 left = _mm_load_ps( &mX ); 
+    __m128 right = _mm_load_ps( &rhs.mX );
+    __m128 result = _mm_sub_ps(left, right);
+    _mm_store_ps( &mX, result );
+#else
     mX -= rhs.mX;
     mY -= rhs.mY;
     mZ -= rhs.mZ;
     mW -= rhs.mW;
+#endif
     return *this;
 }
 

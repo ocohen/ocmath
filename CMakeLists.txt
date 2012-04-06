@@ -6,6 +6,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${OCMATH_BINARY_DIR}")
 
 include_directories(src)
 
+add_definitions(-DOC_SIMD)
+
 if (WIN32)
 add_definitions(-DOC_WIN32)
 else()
