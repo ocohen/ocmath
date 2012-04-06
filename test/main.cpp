@@ -61,6 +61,16 @@ int main()
 
     std::cout << l << " x " << m << " = " << l.Cross(m) << std::endl;
 
+    l = l - m;
+
+    std::cout << l << std::endl;
+
+    point3 p(1,2,3);
+
+    vector4 p2 = p;
+    std::cout << "p " << p << std::endl;
+    std::cout << "p2 " << p2 << std::endl;
+
 #if 0
     vector3 a(1,2,3);
     vector3 b(2,3,4);

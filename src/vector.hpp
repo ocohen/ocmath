@@ -3,6 +3,7 @@
 
 #include <vector4.hpp>
 #include <vector3.hpp>
+#include <point3.hpp>
 #include <vector_io.hpp>
 
 #endif

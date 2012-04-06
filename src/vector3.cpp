@@ -14,7 +14,7 @@ vector3::vector3(){}
 
 vector3::vector3(scalar x, scalar y, scalar z) : vector4(x,y,z,0.0){}
 
-vector3::vector3(const vector3 & rhs) : vector4( rhs.mX, rhs.mY, rhs.mZ, 0.0 ) {}
+vector3::vector3(const vector4 & rhs) : vector4( rhs.X(), rhs.Y(), rhs.Z(), 0.0 ) {}
 
 vector3 vector3::Cross(const vector3 & rhs ) const
 {

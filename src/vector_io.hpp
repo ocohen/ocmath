@@ -11,4 +11,5 @@ class vector3;
 
 std::ostream & operator<<(std::ostream & o, const ocmath::vector4 & rhs);
 std::ostream & operator<<(std::ostream & o, const ocmath::vector3 & rhs);
+std::ostream & operator<<(std::ostream & o, const ocmath::point3 & rhs);
 #endif

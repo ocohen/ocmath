@@ -7,11 +7,13 @@ PROJECT(OCMATH_SRC)
 set(HEADERS
   vector4.hpp
   vector3.hpp
+  point3.hpp
 )
 
 set(SOURCES
   vector4.cpp
   vector3.cpp
+  point3.cpp
 )
 
 
