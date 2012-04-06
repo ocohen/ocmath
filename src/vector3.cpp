@@ -12,7 +12,7 @@ using namespace ocmath;
 
 vector3::vector3(){}
 
-vector3::vector3(float x, float y, float z) : vector4(x,y,z,0.0){}
+vector3::vector3(scalar x, scalar y, scalar z) : vector4(x,y,z,0.0){}
 
 vector3::vector3(const vector3 & rhs) : vector4( rhs.mX, rhs.mY, rhs.mZ, 0.0 ) {}
 
@@ -44,9 +44,9 @@ vector3 vector3::Cross(const vector3 & rhs ) const
     return v;
 
 #else
-    float i = mY * rhs.mZ - mZ * rhs.mY;
-    float j = mX * rhs.mZ - mZ * rhs.mX;
-    float k = mX * rhs.mY - mY * rhs.mX;
+    scalar i = mY * rhs.mZ - mZ * rhs.mY;
+    scalar j = mX * rhs.mZ - mZ * rhs.mX;
+    scalar k = mX * rhs.mY - mY * rhs.mX;
 
     return vector3(i, -j, k);
 #endif
