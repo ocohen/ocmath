@@ -4,6 +4,7 @@
 
 #ifdef OC_SIMD
 #include <xmmintrin.h>
+#include <pmmintrin.h>
 #endif
 
 using namespace ocmath;
@@ -156,7 +157,17 @@ const vector4 & vector4::operator-=(const vector4 & rhs)
 
 scalar vector4::Dot(const vector4 & rhs) const
 {
+#ifdef OC_SIMD
+    __m128 left = _mm_load_ps( &mX ); 
+    __m128 right = _mm_load_ps( &rhs.mX );
+    __m128 mult = _mm_mul_ps(left, right);
+    mult = _mm_hadd_ps(mult, mult);
+    mult = _mm_hadd_ps(mult, mult);
+    scalar result;
+    _mm_store_ss(&result, mult);
+#else
     return mX * rhs.mX + mY * rhs.mY + mZ * rhs.mZ + mW * rhs.mW;
+#endif
 }
 
 scalar vector4::Length() const
