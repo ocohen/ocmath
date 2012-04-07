@@ -8,12 +8,14 @@ set(HEADERS
   vector4.hpp
   vector3.hpp
   point3.hpp
+  matrix.hpp
 )
 
 set(SOURCES
   vector4.cpp
   vector3.cpp
   point3.cpp
+  matrix.cpp
 )
 
 

@@ -1,4 +1,5 @@
 #include <vector.hpp>
+#include <matrix.hpp>
 #include <iostream>
 
 using namespace ocmath;
@@ -70,6 +71,33 @@ int main()
     vector4 p2 = p;
     std::cout << "p " << p << std::endl;
     std::cout << "p2 " << p2 << std::endl;
+
+    Matrix mat = Matrix::Identity();
+    std::cout << "mat : " << mat << std::endl;
+
+    vector4 t(1,2,3,4);
+    std::cout << "mat * t = " << mat * t << std::endl;
+
+    float data[16] = {  1, 0, 0, 0,
+                        0, 0, 1, 0,
+                        0, 1, 0, 0,
+                        1, 0, 0, 0 };
+
+    Matrix mat2( data );
+    std::cout << "mat2 " << mat2 << std::endl;
+
+    std::cout << "mat2 * t = " << mat2 * t << std::endl;
+
+    std::cout << "mat * mat2 " << mat * mat2 << std::endl;
+    float data2[16] = {  1, 2, 3, 4,
+                        5, 6, 7, 8,
+                        9, 10, 11, 12,
+                        13, 14, 15, 16 };
+
+    Matrix mat3( data2 );
+
+    std::cout << "mat3 " << mat3 << std::endl;
+    std::cout << "mat2 * mat3 " << mat2 * mat3 << std::endl;
 
 #if 0
     vector3 a(1,2,3);
