@@ -9,7 +9,7 @@ using namespace ocmath;
 
 std::ostream & operator<<(std::ostream & o, const ocmath::Matrix & rhs)
 {
-    const float * mData = rhs.GetData();    //only calling it mData for the sake of the macro
+    const scalar * mData = rhs.GetData();    //only calling it mData for the sake of the macro
     o << std::endl;
     o << "[ " << Data(0,0) << "," << Data(0,1) << "," << Data(0,2) << "," << Data(0,3) << std::endl;
     o << "  " << Data(1,0) << "," << Data(1,1) << "," << Data(1,2) << "," << Data(1,3) << std::endl;
@@ -55,18 +55,19 @@ vector4 Matrix::GetRow(int index)
 
 vector4 Matrix::operator*(const vector4 & X)
 {
-    float x = X.X() * Data(0,0) + X.Y() * Data(0, 1) + X.Z() * Data(0, 2) + X.W() * Data(0, 3);
-    float y = X.X() * Data(1,0) + X.Y() * Data(1, 1) + X.Z() * Data(1, 2) + X.W() * Data(1, 3);
-    float z = X.X() * Data(2,0) + X.Y() * Data(2, 1) + X.Z() * Data(2, 2) + X.W() * Data(2, 3);
-    float w = X.X() * Data(3,0) + X.Y() * Data(3, 1) + X.Z() * Data(3, 2) + X.W() * Data(3, 3);
+    const scalar * v = X.GetData();
+    scalar x = v[0] * Data(0,0) + v[1] * Data(0, 1) + v[2] * Data(0, 2) + v[3] * Data(0, 3);
+    scalar y = v[0] * Data(1,0) + v[1] * Data(1, 1) + v[2] * Data(1, 2) + v[3] * Data(1, 3);
+    scalar z = v[0] * Data(2,0) + v[1] * Data(2, 1) + v[2] * Data(2, 2) + v[3] * Data(2, 3);
+    scalar w = v[0] * Data(3,0) + v[1] * Data(3, 1) + v[2] * Data(3, 2) + v[3] * Data(3, 3);
 
     return vector4(x,y,z,w);
 }
 
 Matrix Matrix::operator*(const Matrix & rhs)
 {
-    float output[16];
-    const float * data = rhs.GetData();
+    scalar output[16];
+    const scalar * data = rhs.GetData();
     
     for(int c = 0; c<4; ++c)
     {

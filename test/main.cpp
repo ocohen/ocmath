@@ -99,6 +99,13 @@ int main()
     std::cout << "mat3 " << mat3 << std::endl;
     std::cout << "mat2 * mat3 " << mat2 * mat3 << std::endl;
 
+
+    for(int i=0; i<100000000; i++)
+    {
+        t = mat2 * t;
+    }
+
+    std::cout << t << std::endl;
 #if 0
     vector3 a(1,2,3);
     vector3 b(2,3,4);

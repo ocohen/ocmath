@@ -41,6 +41,8 @@ public:
 
     const vector4 & operator=(const vector4 & rhs);
 
+    const scalar * GetData() const {return &mX; }
+
 protected:
     scalar mX OC_ALIGN;
     scalar mY, mZ, mW;   //this is protected because anyone extending this will want to use data directly for SIMD type instructions.
