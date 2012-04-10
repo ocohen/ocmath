@@ -3,9 +3,16 @@
 using namespace ocmath;
 
 //Assuming row major
-#define DataFrom(array, row, col) array[row * 4 + col]
-#define Data(row,col) DataFrom(mData, row, col)
+#define DataFrom(array, col, row) array[col * 4 + row]
+#define Data(col,row) DataFrom(mData, row, col)
 
+#ifdef SIMDV
+#undef SIMDV
+#endif
+
+#ifdef OC_SIMD
+#define SIMDV(name, vector) __m128 * name = (__m128*) vector 
+#endif
 
 std::ostream & operator<<(std::ostream & o, const ocmath::Matrix & rhs)
 {
@@ -55,20 +62,41 @@ vector4 Matrix::GetRow(int index)
 
 vector4 Matrix::operator*(const vector4 & X)
 {
+#ifdef OC_SIMD
+    const scalar * v = X.GetData();
+    float out[4];
+    SIMDV(c1, out);
+    *c1 = _mm_load1_ps(v);
+    __m128 c2 = _mm_load1_ps(v+1);
+    __m128 c3 = _mm_load1_ps(v+2);
+    __m128 c4 = _mm_load1_ps(v+3);
+
+    SIMDV(col, mData);
+
+    *c1 = _mm_mul_ps(*col++, *c1);
+    c2 = _mm_mul_ps(*col++, c2);
+    c3 = _mm_mul_ps(*col++, c3);
+    c4 = _mm_mul_ps(*col++, c4);
+    *c1 = _mm_add_ps(*c1, c2);
+    c3 = _mm_add_ps(c3, c4);
+    *c1 = _mm_add_ps(*c1, c3);
+
+    return vector4(out[0], out[1], out[2], out[3]);
+#else
     const scalar * v = X.GetData();
     scalar x = v[0] * Data(0,0) + v[1] * Data(0, 1) + v[2] * Data(0, 2) + v[3] * Data(0, 3);
     scalar y = v[0] * Data(1,0) + v[1] * Data(1, 1) + v[2] * Data(1, 2) + v[3] * Data(1, 3);
     scalar z = v[0] * Data(2,0) + v[1] * Data(2, 1) + v[2] * Data(2, 2) + v[3] * Data(2, 3);
     scalar w = v[0] * Data(3,0) + v[1] * Data(3, 1) + v[2] * Data(3, 2) + v[3] * Data(3, 3);
-
     return vector4(x,y,z,w);
+#endif
 }
 
 Matrix Matrix::operator*(const Matrix & rhs)
 {
     scalar output[16];
     const scalar * data = rhs.GetData();
-    
+
     for(int c = 0; c<4; ++c)
     {
         for(int r = 0; r < 4; ++r)

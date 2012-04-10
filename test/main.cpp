@@ -6,6 +6,7 @@ using namespace ocmath;
 
 int main()
 {
+#if 0
     vector4 f(1,2,3,4);
     vector4 g = f;
     vector4 s;
@@ -74,21 +75,20 @@ int main()
 
     Matrix mat = Matrix::Identity();
     std::cout << "mat : " << mat << std::endl;
-
+#endif
     vector4 t(1,2,3,4);
-    std::cout << "mat * t = " << mat * t << std::endl;
 
-    float data[16] = {  1, 0, 0, 0,
+    float data[16] = {  1, 0, 0, 1,
                         0, 0, 1, 0,
                         0, 1, 0, 0,
-                        1, 0, 0, 0 };
+                        0, 0, 0, 0 };
 
     Matrix mat2( data );
     std::cout << "mat2 " << mat2 << std::endl;
 
+#if 0
     std::cout << "mat2 * t = " << mat2 * t << std::endl;
 
-    std::cout << "mat * mat2 " << mat * mat2 << std::endl;
     float data2[16] = {  1, 2, 3, 4,
                         5, 6, 7, 8,
                         9, 10, 11, 12,
@@ -98,9 +98,9 @@ int main()
 
     std::cout << "mat3 " << mat3 << std::endl;
     std::cout << "mat2 * mat3 " << mat2 * mat3 << std::endl;
+#endif
 
-
-    for(int i=0; i<100000000; i++)
+    for(int i=0; i<300000000; i++)
     {
         t = mat2 * t;
     }
