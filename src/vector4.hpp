@@ -3,7 +3,7 @@
 
 #include <simd.hpp>
 
-namespace ocmath
+namespace oc
 {
 
 typedef float scalar;

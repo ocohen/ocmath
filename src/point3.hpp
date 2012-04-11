@@ -4,7 +4,7 @@
 #include <vector4.hpp>
 #include <vector3.hpp>
 
-namespace ocmath
+namespace oc
 {
 
 class point3 : public vector4

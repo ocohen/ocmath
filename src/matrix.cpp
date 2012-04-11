@@ -1,6 +1,6 @@
 #include <matrix.hpp>
 
-using namespace ocmath;
+using namespace oc;
 
 //Assuming row major
 #define DataFrom(array, col, row) array[col * 4 + row]
@@ -14,7 +14,7 @@ using namespace ocmath;
 #define SIMDV(name, vector) __m128 * name = (__m128*) vector 
 #endif
 
-std::ostream & operator<<(std::ostream & o, const ocmath::Matrix & rhs)
+std::ostream & operator<<(std::ostream & o, const oc::Matrix & rhs)
 {
     const scalar * mData = rhs.GetData();    //only calling it mData for the sake of the macro
     o << std::endl;

@@ -3,7 +3,7 @@
 
 #include <vector4.hpp>
 
-namespace ocmath
+namespace oc
 {
 
 class vector3 : public vector4

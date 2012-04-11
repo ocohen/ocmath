@@ -3,15 +3,15 @@
 
 #include <iostream>
 
-namespace ocmath
+namespace oc
 {
 class vector4;
 class vector3;
 class Matrix;
 }
 
-std::ostream & operator<<(std::ostream & o, const ocmath::vector4 & rhs);
-std::ostream & operator<<(std::ostream & o, const ocmath::vector3 & rhs);
-std::ostream & operator<<(std::ostream & o, const ocmath::point3 & rhs);
-std::ostream & operator<<(std::ostream & o, const ocmath::Matrix & rhs);
+std::ostream & operator<<(std::ostream & o, const oc::vector4 & rhs);
+std::ostream & operator<<(std::ostream & o, const oc::vector3 & rhs);
+std::ostream & operator<<(std::ostream & o, const oc::point3 & rhs);
+std::ostream & operator<<(std::ostream & o, const oc::Matrix & rhs);
 #endif

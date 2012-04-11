@@ -2,13 +2,13 @@
 #include <iostream>
 #include <simd.hpp>
 
-std::ostream & operator<<(std::ostream & o, const ocmath::vector3 & rhs)
+std::ostream & operator<<(std::ostream & o, const oc::vector3 & rhs)
 {
     o << "(" << rhs.X() << "," << rhs.Y() << "," << rhs.Z() << ")";
     return o;
 }
 
-using namespace ocmath;
+using namespace oc;
 
 vector3::vector3(){}
 

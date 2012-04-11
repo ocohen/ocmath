@@ -1,9 +1,9 @@
 #include <point3.hpp>
 #include <vector_io.hpp>
 
-using namespace ocmath;
+using namespace oc;
 
-std::ostream & operator<<(std::ostream & o, const ocmath::point3 & rhs)
+std::ostream & operator<<(std::ostream & o, const oc::point3 & rhs)
 {
     o << "(" << rhs.X() << "," << rhs.Y() << "," << rhs.Z() << ")";
     return o;

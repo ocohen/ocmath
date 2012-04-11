@@ -1,8 +1,9 @@
 #include <vector.hpp>
 #include <matrix.hpp>
 #include <iostream>
+#include <octimer.hpp>
 
-using namespace ocmath;
+using namespace oc;
 
 int main()
 {
@@ -100,10 +101,13 @@ int main()
     std::cout << "mat2 * mat3 " << mat2 * mat3 << std::endl;
 #endif
 
-    for(int i=0; i<300000000; i++)
+    oc::Timer timer;
+    for(int i=0; i<3000; i++)
     {
         t = mat2 * t;
     }
+
+    std::cout << "Time elapsed: " << timer.GetMicroseconds() << std::endl;
 
     std::cout << t << std::endl;
 #if 0

@@ -24,5 +24,4 @@ set(SOURCES
 ##########################################################
 
 ADD_LIBRARY(ocmath_src STATIC ${SOURCES} ${HEADERS})
-
-TARGET_LINK_LIBRARIES(ocmath_src )
+TARGET_LINK_LIBRARIES(ocmath_src) 

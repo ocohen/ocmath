@@ -3,10 +3,10 @@
 #include <cmath>
 #include <simd.hpp>
 
-using namespace ocmath;
+using namespace oc;
 
 //make it nice to print to screen
-std::ostream & operator<<(std::ostream & o, const ocmath::vector4 & rhs)
+std::ostream & operator<<(std::ostream & o, const oc::vector4 & rhs)
 {
     o << "(" << rhs.X() << "," << rhs.Y() << "," << rhs.Z() << "," << rhs.W() << ")";
     return o;

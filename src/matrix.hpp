@@ -4,7 +4,7 @@
 #include <simd.hpp>
 #include <vector.hpp>
 
-namespace ocmath
+namespace oc
 {
 
 class Matrix
