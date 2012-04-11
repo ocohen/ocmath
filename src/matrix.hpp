@@ -15,8 +15,8 @@ public:
 
     static Matrix Identity();
 
-    vector4 operator*(const vector4 & rhs);   
-    Matrix operator*(const Matrix & rhs);
+    vector4 operator*(const vector4 & rhs) const;   
+    Matrix operator*(const Matrix & rhs) const;
     
     vector4 GetColumn(int index);
     vector4 GetRow(int index);

@@ -87,7 +87,6 @@ int main()
     Matrix mat2( data );
     std::cout << "mat2 " << mat2 << std::endl;
 
-#if 0
     std::cout << "mat2 * t = " << mat2 * t << std::endl;
 
     float data2[16] = {  1, 2, 3, 4,
@@ -99,7 +98,6 @@ int main()
 
     std::cout << "mat3 " << mat3 << std::endl;
     std::cout << "mat2 * mat3 " << mat2 * mat3 << std::endl;
-#endif
 
     oc::Timer timer;
     for(int i=0; i<3000; i++)
@@ -110,6 +108,19 @@ int main()
     std::cout << "Time elapsed: " << timer.GetMicroseconds() << std::endl;
 
     std::cout << t << std::endl;
+
+    timer.Restart();
+    for(int i=0; i<30000; i++)
+    {
+        mat3 = mat2 * mat3;
+        if( i % 10 == 0)
+        {
+            mat3 = mat2;
+        }
+    }
+    std::cout << mat3 << std::endl;
+    std::cout << "Time elapsed: " << timer.GetMicroseconds() << std::endl;
+
 #if 0
     vector3 a(1,2,3);
     vector3 b(2,3,4);

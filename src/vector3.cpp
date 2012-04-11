@@ -23,9 +23,9 @@ vector3 vector3::Cross(const vector3 & rhs ) const
     SIMDV(right, rhs);
 
     //need to swap middle elements (y and z)   (11 01 10 0)
-    int firstSwap = _MM_SHUFFLE(3, 0, 2, 1);
+    const int firstSwap = _MM_SHUFFLE(3, 0, 2, 1);
     //need to swap first elements (x and y) (10 11 01 0)
-    int secondSwap = _MM_SHUFFLE(3, 1, 0, 2);
+    const int secondSwap = _MM_SHUFFLE(3, 1, 0, 2);
 
     __m128 left1 = _mm_shuffle_ps(*left, *left, firstSwap);
     __m128 right1= _mm_shuffle_ps(*right, *right, secondSwap);
