@@ -28,6 +28,8 @@ private:    //all of these operations are undefined for a point3
     point3 operator/(scalar k) const;
     point3 operator/=(scalar k);
 
+    scalar Dot(const point3 & rhs) const;
+
 };
 
     point3 operator*(scalar lhs, const point3 & rhs);  //DON'T implement this. This is going to not link on purpose, the operation is undefined for a point3

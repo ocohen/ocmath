@@ -2,7 +2,7 @@
 # Build a library
 ##########################################################
 
-PROJECT(OCMATH_SRC)
+PROJECT(OCMATH)
 
 set(HEADERS
   vector4.hpp
@@ -23,5 +23,5 @@ set(SOURCES
 # Build the library 
 ##########################################################
 
-ADD_LIBRARY(ocmath_src STATIC ${SOURCES} ${HEADERS})
-TARGET_LINK_LIBRARIES(ocmath_src) 
+ADD_LIBRARY(ocmath STATIC ${SOURCES} ${HEADERS})
+TARGET_LINK_LIBRARIES(ocmath) 

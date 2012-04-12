@@ -130,6 +130,11 @@ vector4 vector4::operator-(const vector4 & rhs) const
 #endif
 }
 
+vector4 vector4::operator-() const
+{
+    return vector4( -mX, -mY, -mZ, -mW );
+}
+
 const vector4 & vector4::operator-=(const vector4 & rhs)
 {
 #ifdef OC_SIMD

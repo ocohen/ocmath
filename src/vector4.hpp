@@ -27,6 +27,8 @@ public:
     vector4 operator/(scalar rhs) const;
     const vector4 & operator/=(scalar rhs);
 
+    vector4 operator-() const;
+
     scalar X() const { return mX; }
     scalar Y() const { return mY; }
     scalar Z() const { return mZ; }
