@@ -12,7 +12,7 @@ class point3 : public vector4
 public:
     point3();
     point3(scalar x, scalar y, scalar z);
-    point3(const point3 & rhs);
+    explicit point3(const vector4 & rhs);
 
     vector3 operator-(const point3 & rhs) const;
 
