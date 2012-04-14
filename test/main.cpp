@@ -100,7 +100,7 @@ int main()
     std::cout << "mat2 * mat3 " << mat2 * mat3 << std::endl;
 
     oc::Timer timer;
-    for(int i=0; i<3000; i++)
+    for(int i=0; i<300000; i++)
     {
         t = mat2 * t;
     }
