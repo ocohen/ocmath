@@ -17,5 +17,5 @@ point3::point3(const vector4 & rhs) : vector4( rhs.X(), rhs.Y(), rhs.Z(), 1.0){}
 
 vector3 point3::operator-(const point3 & rhs) const
 {
-    return vector4::operator-(rhs);
+    return vector3( vector4::operator-(rhs) );
 }

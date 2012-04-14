@@ -56,5 +56,5 @@ vector3 vector3::Project(const vector3 & rhs) const
 {
     scalar rhs_2 = rhs.Length2();
     scalar this_dot_rhs = this->Dot(rhs);
-    return (this_dot_rhs / rhs_2) * rhs;
+    return vector3((this_dot_rhs / rhs_2) * rhs);
 }

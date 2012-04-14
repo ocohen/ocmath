@@ -11,7 +11,7 @@ class vector3 : public vector4
 public:
     vector3();
     vector3(scalar x, scalar y, scalar z);
-    vector3( const vector4 & rhs );
+    explicit vector3( const vector4 & rhs );
 
     vector3 Cross(const vector3 & rhs ) const;
     vector3 Project(const vector3 & rhs) const;
