@@ -10,6 +10,7 @@ set(HEADERS
   point3.hpp
   matrix.hpp
   ocmath.hpp
+  transform.hpp
 )
 
 set(SOURCES
@@ -18,6 +19,7 @@ set(SOURCES
   point3.cpp
   matrix.cpp
   ocmath.cpp
+  transform.cpp
 )
 
 

@@ -11,7 +11,9 @@ class Matrix
 {
 public:
 
+    Matrix(){}
     Matrix(scalar * data);
+    Matrix(const Matrix & rhs);
 
     static Matrix Identity();
 
@@ -22,12 +24,14 @@ public:
     vector4 GetRow(int index);
     const float * GetData() const {return mData;}
 
-private:
+protected:  //protected so extended class can use SIMD operations on data
     scalar mData[16] OC_ALIGN;
 
 
 };
 
 }
+#define DataFrom(array, major, minor) array[major * 4 + minor]
+#define Data(major,minor) DataFrom(mData, major, minor)
 
 #endif

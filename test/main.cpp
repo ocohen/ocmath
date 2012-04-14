@@ -1,5 +1,6 @@
 #include <vector.hpp>
 #include <matrix.hpp>
+#include <transform.hpp>
 #include <iostream>
 #include <octimer.hpp>
 
@@ -89,12 +90,13 @@ int main()
 
     std::cout << "mat2 * t = " << mat2 * t << std::endl;
 
-    float data2[16] = {  1, 2, 3, 4,
-                        5, 6, 7, 8,
-                        9, 10, 11, 12,
-                        13, 14, 15, 16 };
+    float data2[16] = {  1, 2, 3, 0,
+                        5, 6, 7, 0,
+                        9, 10, 11, 0,
+                        13, 14, 15, 1 };
 
     Matrix mat3( data2 );
+    Matrix mat4( data2 );
 
     std::cout << "mat3 " << mat3 << std::endl;
     std::cout << "mat2 * mat3 " << mat2 * mat3 << std::endl;
@@ -112,13 +114,28 @@ int main()
     timer.Restart();
     for(int i=0; i<30000; i++)
     {
-        mat3 = mat2 * mat3;
-        if( i % 10 == 0)
+        mat4 = mat4 * mat3;
+        if( i % 11 == 0)
         {
-            mat3 = mat2;
+            mat4 = mat3;
         }
     }
-    std::cout << mat3 << std::endl;
+    std::cout << mat4 << std::endl;
+    std::cout << "Time elapsed: " << timer.GetMicroseconds() << std::endl;
+
+    Transform trans(data2);
+    Transform trans2(data2);
+    Transform t3(data2);
+    timer.Restart();
+    for(int i=0; i<30000; i++)
+    {
+        t3 = t3 * trans;
+        if( i % 11 == 0)
+        {
+            t3 = trans2;
+        }
+    }
+    std::cout << t3 << std::endl;
     std::cout << "Time elapsed: " << timer.GetMicroseconds() << std::endl;
 
 #if 0

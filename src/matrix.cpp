@@ -2,8 +2,6 @@
 
 using namespace oc;
 
-#define DataFrom(array, major, minor) array[major * 4 + minor]
-#define Data(major,minor) DataFrom(mData, major, minor)
 
 #ifdef SIMDV
 #undef SIMDV
@@ -31,6 +29,11 @@ Matrix::Matrix(scalar * data)
     {
         mData[i] = data[i];
     }
+}
+
+Matrix::Matrix(const Matrix & rhs)
+{
+    memcpy(mData, rhs.mData, 16);
 }
 
 Matrix Matrix::Identity()

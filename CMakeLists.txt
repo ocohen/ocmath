@@ -11,7 +11,7 @@ include_directories(src)
 find_package(OCTIMER REQUIRED)
 include_directories(${OCTIMER_INCLUDE_DIR})
 
-add_definitions(-DOC_SIMD)
+#add_definitions(-DOC_SIMD)
 
 if (WIN32)
 add_definitions(-DOC_WIN32)
