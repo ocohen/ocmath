@@ -9,6 +9,7 @@ set(HEADERS
   vector3.hpp
   point3.hpp
   matrix.hpp
+  ocmath.hpp
 )
 
 set(SOURCES
@@ -16,6 +17,7 @@ set(SOURCES
   vector3.cpp
   point3.cpp
   matrix.cpp
+  ocmath.cpp
 )
 
 

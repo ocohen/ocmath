@@ -14,6 +14,7 @@ public:
     vector3( const vector4 & rhs );
 
     vector3 Cross(const vector3 & rhs ) const;
+    vector3 Project(const vector3 & rhs) const;
 
 };
 

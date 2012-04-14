@@ -51,3 +51,10 @@ vector3 vector3::Cross(const vector3 & rhs ) const
     return vector3(i, -j, k);
 #endif
 }
+
+vector3 vector3::Project(const vector3 & rhs) const
+{
+    scalar rhs_2 = rhs.Length2();
+    scalar this_dot_rhs = this->Dot(rhs);
+    return (this_dot_rhs / rhs_2) * rhs;
+}

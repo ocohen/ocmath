@@ -1,12 +1,11 @@
 #ifndef OC_VECTOR4_H
 #define OC_VECTOR4_H
 
+#include <ocmath.hpp>
 #include <simd.hpp>
 
 namespace oc
 {
-
-typedef float scalar;
 
 class vector4
 {
