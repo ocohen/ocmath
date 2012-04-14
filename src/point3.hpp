@@ -14,7 +14,7 @@ public:
     point3(scalar x, scalar y, scalar z);
     point3(const point3 & rhs);
 
-    vector3 operator-(const point3 & rhs);
+    vector3 operator-(const point3 & rhs) const;
 
     scalar Dot(const vector3 & rhs) const  //we allow points to dot with vectors
     {

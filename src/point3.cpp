@@ -15,7 +15,7 @@ point3::point3(scalar x, scalar y, scalar z) : vector4(x, y, z, 1.0){}
 
 point3::point3(const point3 & rhs) : vector4( rhs.mX, rhs.mY, rhs.mZ, 1.0){}
 
-vector3 point3::operator-(const point3 & rhs)
+vector3 point3::operator-(const point3 & rhs) const
 {
     return vector4::operator-(rhs);
 }
