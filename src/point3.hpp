@@ -16,6 +16,11 @@ public:
 
     vector3 operator-(const point3 & rhs);
 
+    scalar Dot(const vector3 & rhs) const  //we allow points to dot with vectors
+    {
+        return vector4::Dot(rhs);
+    }
+
 private:    //all of these operations are undefined for a point3
     point3 operator+(const point3 & rhs) const;
     const point3 & operator+=(const point3 & rhs);
