@@ -19,3 +19,8 @@ vector3 point3::operator-(const point3 & rhs) const
 {
     return vector3( vector4::operator-(rhs) );
 }
+
+point3 point3::operator-() const
+{
+    return point3(-mX, -mY, -mZ);
+}

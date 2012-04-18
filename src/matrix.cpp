@@ -13,27 +13,24 @@ using namespace oc;
 
 std::ostream & operator<<(std::ostream & o, const oc::Matrix & rhs)
 {
-    //Don't do any special formatting on this, the client is expected to know column major vs row major
-    const scalar * mData = rhs.GetData();    //only calling it mData for the sake of the macro
+    //Format output in regular matrix format
+    const scalar * mData = rhs.GetData();
     o << std::endl;
-    o << "[ " << mData[0] << "," << mData[1] << "," << mData[2] << "," << mData[3] << std::endl;
-    o << "  " << mData[4] << "," << mData[5] << "," << mData[6] << "," << mData[7] << std::endl;
-    o << "  " << mData[8] << "," << mData[9] << "," << mData[10] << "," << mData[11] << std::endl;
-    o << "  " << mData[12] << "," << mData[13] << "," << mData[14] << "," << mData[15] << " ]";
+    o << "[ " << mData[0] << "," << mData[4] << "," << mData[8] << "," << mData[12] << std::endl;
+    o << "  " << mData[1] << "," << mData[5] << "," << mData[9] << "," << mData[13] << std::endl;
+    o << "  " << mData[2] << "," << mData[6] << "," << mData[10] << "," << mData[14] << std::endl;
+    o << "  " << mData[3] << "," << mData[7] << "," << mData[11] << "," << mData[15] << " ]";
     return o;
 }
 
 Matrix::Matrix(scalar * data)
 {
-    for(int i=0; i<16; i++)
-    {
-        mData[i] = data[i];
-    }
+    memcpy(mData, data, 16 * sizeof(scalar) );
 }
 
 Matrix::Matrix(const Matrix & rhs)
 {
-    memcpy(mData, rhs.mData, 16);
+    memcpy(mData, rhs.mData, 16 * sizeof(scalar) );
 }
 
 Matrix Matrix::Identity()
@@ -45,14 +42,27 @@ Matrix Matrix::Identity()
     return Matrix(data);
 }
 
-vector4 Matrix::GetColumn(int index)
+vector4 Matrix::GetColumn(int index)    //matrix column (so for our representation it's actually a row)
 {
-    return vector4(Data(index,0), Data(index,1), Data(index,2), Data(index,3) );
+    return vector4( Data(index, 0), Data(index, 1), Data(index, 2), Data(index, 3) );
 }
 
-vector4 Matrix::GetRow(int index)
+void Matrix::SetColumn(int index, const vector4 & v) //matrix column (for us it's a row)
 {
-    return vector4( Data(0, index), Data(1, index), Data(2, index), Data(3, index) );
+    memcpy(mData + index*4, v.GetData(), sizeof(vector4) );
+}
+
+vector4 Matrix::GetRow(int index)   //matrix row (so for us it's a column)
+{
+    return vector4(Data(0,index), Data(1,index), Data(2,index), Data(3,index) );
+}
+
+void Matrix::SetRow(int index, const vector4 & v)   //matrix row (so for us it's column)
+{
+    Data(0, index) = v.X();
+    Data(1, index) = v.Y();
+    Data(2, index) = v.Z();
+    Data(3, index) = v.W();
 }
 
 vector4 Matrix::operator*(const vector4 & X) const
@@ -97,12 +107,12 @@ Matrix Matrix::operator*(const Matrix & rhs) const
 
     for(int i=0; i< 16; i += 4)
     {
-        *c1 = _mm_load1_ps(mData + i);
-        __m128 c2 = _mm_load1_ps(mData + 1 + i);
-        __m128 c3 = _mm_load1_ps(mData + 2 + i);
-        __m128 c4 = _mm_load1_ps(mData + 3 + i);
+        *c1 = _mm_load1_ps(data + i);
+        __m128 c2 = _mm_load1_ps(data + 1 + i);
+        __m128 c3 = _mm_load1_ps(data + 2 + i);
+        __m128 c4 = _mm_load1_ps(data + 3 + i);
 
-        SIMDV(col, data);
+        SIMDV(col, mData);
 
         //first row
         *c1 = _mm_mul_ps(*col++, *c1);
@@ -122,7 +132,7 @@ Matrix Matrix::operator*(const Matrix & rhs) const
     {
         for(int c = 0; c<4; ++c)
         {
-            DataFrom(output, r, c) = Data(r,0) * DataFrom(data, 0,c) + Data(r, 1) * DataFrom(data, 1,c) + Data(r,2) * DataFrom(data, 2, c) + Data(r,3) * DataFrom(data, 3, c);
+            DataFrom(output, r, c) = DataFrom(data, r,0) * Data(0,c) + DataFrom(data, r, 1) * Data(1,c) + DataFrom(data, r,2) * Data( 2, c) + DataFrom(data,r,3) * Data(3, c);
         }
     }
 #endif

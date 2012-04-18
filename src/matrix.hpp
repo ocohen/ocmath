@@ -24,6 +24,9 @@ public:
     vector4 GetRow(int index);
     const float * GetData() const {return mData;}
 
+    void SetRow(int index, const vector4 & v);
+    void SetColumn(int index, const vector4 & v);
+
 protected:  //protected so extended class can use SIMD operations on data
     scalar mData[16] OC_ALIGN;
 

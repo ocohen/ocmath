@@ -8,6 +8,48 @@ using namespace oc;
 
 int main()
 {
+    Transform Move = Matrix::Identity();
+    Transform T = Matrix::Identity();
+	point3 origin(10,10,0);
+    Move.SetOrigin(origin);
+    point3 lookAt(0,0,0);
+    vector3 up(0,1,0);
+	//std::cout << "origin: " << origin << std::endl;
+	vector3 dir = lookAt - origin;
+	//std::cout << "dir: " << dir << std::endl;
+	dir.Normalize();
+	//std::cout << "dir normalized: " << dir << std::endl;
+	vector3 lat = up.Cross(dir);
+	lat.Normalize();
+	//std::cout << "lat: " << lat << std::endl;
+
+	vector3 cameraUp = dir.Cross(lat);
+	cameraUp.Normalize();
+	//std::cout << "cameraUp: " << cameraUp << std::endl;
+
+	//now put origin back in
+	//lat.mData[3] = lat.Dot(origin);
+	//cameraUp.mData[3] = cameraUp.Dot(origin);
+	//dir.mData[3] = dir.Dot(origin);
+
+
+    T.SetRow(0, lat);
+    T.SetRow(1, cameraUp);
+    T.SetRow(2, dir);
+
+    std::cout << "T: " << T << std::endl;
+    std::cout << "Move: " << Move << std::endl;
+
+    T = T*Move;
+    std::cout << "T * M " << T << std::endl;
+
+    point3 test(0,0,0);
+    
+    std::cout << "World space: " << test << std::endl;
+
+    std::cout << "Camera space: " << T * test << std::endl;
+
+
 #if 0
     vector4 f(1,2,3,4);
     vector4 g = f;

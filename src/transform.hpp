@@ -14,6 +14,18 @@ public:
     Transform(const Matrix & rhs);
     Transform(const Transform & rhs);
     Transform operator*(const Transform & rhs) const;
+    vector4 operator*(const vector4 & rhs) const
+    {
+        return Matrix::operator*(rhs);
+    }
+
+    point3 operator*(const point3 & rhs) const
+    {
+        return point3(Matrix::operator*(rhs));
+    }
+
+    point3 GetOrigin() const;
+    void SetOrigin(const point3 & origin);
 
 };
 }

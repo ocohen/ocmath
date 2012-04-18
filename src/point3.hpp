@@ -21,6 +21,8 @@ public:
         return vector4::Dot(rhs);
     }
 
+    point3 operator-() const;
+
 private:    //all of these operations are undefined for a point3
     point3 operator+(const point3 & rhs) const;
     const point3 & operator+=(const point3 & rhs);
@@ -34,7 +36,6 @@ private:    //all of these operations are undefined for a point3
     point3 operator/=(scalar k);
 
     scalar Dot(const point3 & rhs) const;
-    point3 operator-() const;
 
 };
 
