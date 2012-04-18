@@ -183,6 +183,12 @@ const vector4 & vector4::Normalize()
     return (*this);
 }
 
+vector4 vector4::GetNormalized() const
+{
+    scalar l = Length();
+    return *this / l;
+}
+
 const vector4 &  vector4::operator=(const vector4 & rhs)
 {
     mX = rhs.mX;

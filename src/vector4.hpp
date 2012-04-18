@@ -39,6 +39,7 @@ public:
     scalar Dot(const vector4 & rhs) const;
 
     const vector4 & Normalize();
+    vector4 GetNormalized() const;
 
     const vector4 & operator=(const vector4 & rhs);
 

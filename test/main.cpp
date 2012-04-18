@@ -3,6 +3,7 @@
 #include <transform.hpp>
 #include <iostream>
 #include <octimer.hpp>
+#include <quaternion.hpp>
 
 using namespace oc;
 
@@ -119,7 +120,6 @@ int main()
 
     Matrix mat = Matrix::Identity();
     std::cout << "mat : " << mat << std::endl;
-#endif
     vector4 t(1,2,3,4);
 
     float data[16] = {  1, 0, 0, 1,
@@ -180,7 +180,6 @@ int main()
     std::cout << t3 << std::endl;
     std::cout << "Time elapsed: " << timer.GetMicroseconds() << std::endl;
 
-#if 0
     vector3 a(1,2,3);
     vector3 b(2,3,4);
     vector3 c;
@@ -202,5 +201,36 @@ int main()
     std::cout << "c: " << c << std::endl;
 #endif
 
+    vector3 v(1, 0, 0);
+    Quaternion q = Quaternion::FromAxis(3.14159 / 4, vector3(0,1,1)); 
+    std::cout << "q " << q << std::endl;
+    std::cout << "q * v = " << q * v << std::endl;
+
     return 0;
+}
+
+Matrix Quaternion::GetMatrix() const
+{
+    scalar x = mAxis.X();
+    scalar y = mAxis.Y();
+    scalar z = mAxis.Z();
+
+    scalar x2 = x*x;
+    scalar y2 = y*y;
+    scalar z2 = z*z;
+    scalar xy = x*y;
+    scalar xz = x*z;
+    scalar yz = y*z;
+    scalar wx = mW*x;
+    scalar wy = mW*y;
+    scalar wz = mW*z;
+
+    //got the formula from here:
+    //http://content.gpwiki.org/index.php/OpenGL:Tutorials:Using_Quaternions_to_represent_rotation
+
+    scalar data[16] = {1.0f - 2.0f * (y2 + z2), 2.0f * (xy - wz), 2.0f * (xz + wy), 0.0f,
+                       2.0f * (xy + wz), 1.0f - 2.0f * (x2 + z2), 2.0f * (yz - wx), 0.0f,
+                       2.0f * (xz - wy), 2.0f * (yz + wx), 1.0f - 2.0f * (x2 + y2), 0.0f,
+                       0.0f, 0.0f, 0.0f, 1.0f};
+    return Matrix(data);
 }
