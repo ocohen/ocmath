@@ -93,7 +93,7 @@ Transform Transform::operator*(const Transform & rhs) const
     {
         for(int c = 0; c<3; ++c)
         {
-            DataFrom(output, r, c) = DataFrom(data,r,0) * Data(mData, 0,c) + DataFrom(data,r, 1) * Data( 1,c) + DataFrom(data, r,2) * Data( 2, c);
+            DataFrom(output, r, c) = DataFrom(data,r,0) * Data(0,c) + DataFrom(data,r, 1) * Data( 1,c) + DataFrom(data, r,2) * Data( 2, c);
         }
     }
 
